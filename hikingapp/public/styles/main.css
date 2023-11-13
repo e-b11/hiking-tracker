@@ -7,13 +7,13 @@
 /* Always add your CSS below the reset CSS           */
 /*****************************************************/
 :root {
-  --indigo: #364573;
-  --misty-violet: #6d226b;
-  --soft-magenta: #b56576;
-  --bright-rose: #e56b6f;
+  --indigo: #444422;
+  --misty-violet: #2255bb;
+  --soft-magenta: #dd9933;
+  --bright-rose: #cc5522;
   --sandy: #faeae1;
   --color-svg: white;
-  --color-svg-hover: #364573;
+  --color-svg-hover: #444422;
   --color-svg-close: white;
 }
 
