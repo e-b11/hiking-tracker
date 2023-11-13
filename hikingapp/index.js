@@ -10,6 +10,8 @@ app.set("view engine", "ejs");
 
 app.use(express.urlencoded({ extended: true }));
 
+app.use(express.static(__dirname + "/public"));
+
 app.get("/", (req, res) => {
   res.render(path.join(__dirname + "/views/index.ejs"));
 });
