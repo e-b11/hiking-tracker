@@ -25,5 +25,10 @@ app.get("/", (req, res) => {
   res.render(path.join(__dirname + "/views/index.ejs"));
 });
 
+//Render login page
+app.get("/login", (req, res) => {
+  res.render(path.join(__dirname + "/views/login.ejs"));
+});
+
 //Tell it what port to listen out and send a message when it starts
 app.listen(port, () => console.log("Website started."));

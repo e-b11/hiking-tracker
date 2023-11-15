@@ -1,0 +1,78 @@
+:root {
+  --indigo: #324411;
+  --misty-violet: #2255bb;
+  --soft-magenta: #dd9933;
+  --bright-rose: #cc5522;
+  --sandy: #faeae1;
+  --color-svg: white;
+  --color-svg-hover: #324411;
+  --color-svg-close: white;
+}
+
+fieldset {
+  width: 0;
+  border-radius: 15px;
+  border: var(--misty-violet) 3px solid;
+  padding: 2rem;
+}
+
+body {
+  background-color: var(--soft-magenta);
+  display: flex;
+}
+
+header nav a {
+  color: var(--misty-violet);
+}
+
+header nav a[href]:hover {
+  color: var(--indigo);
+  font-weight: bold;
+}
+
+form {
+  background-color: rgba(255, 255, 255, 0.567);
+  border-radius: 15px;
+  padding: 1rem;
+  margin-top: 5em;
+}
+
+legend {
+  text-align: center;
+  font-size: 2rem;
+  color: var(--misty-violet);
+  text-shadow: 1px 1px 1px white;
+  font-family: Playfair Display;
+  font-weight: bold;
+}
+
+.login {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.2rem;
+}
+
+.login > div {
+  margin: 0.5rem 0;
+}
+
+.button {
+  color: var(--misty-violet);
+  background-color: white;
+  text-decoration: none;
+  font-family: Lato;
+  border: 3px solid var(--misty-violet);
+  padding: 0.2em 0.4em;
+  display: inline-block;
+  transition: background-color 300ms ease, color 300ms ease;
+  margin-top: 3em;
+}
+
+.button:hover {
+  color: white;
+  border: 3px solid white;
+  background-color: var(--misty-violet);
+  text-decoration: none;
+  font-weight: normal;
+}
