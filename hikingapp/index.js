@@ -20,7 +20,7 @@ app.use(cookieParser());
 
 //Connect css file
 app.use(express.static(__dirname + "/public"));
-app.use(favicon(path.join(faviconPath, "favicon.ico")));
+//app.use(favicon(path.join(faviconPath, "favicon.ico")));
 
 // Set up knex, will have to adjust database
 const knex = require("knex")({
@@ -28,8 +28,8 @@ const knex = require("knex")({
   connection: {
     host: process.env.RDS_HOSTNAME || "localhost",
     user: process.env.RDS_USERNAME || "postgres",
-    password: process.env.RDS_PASSWORD || "postgres",
-    database: process.env.RDS_DB_NAME || "intex",
+    password: process.env.RDS_PASSWORD || "password",
+    database: process.env.RDS_DB_NAME || "hikingapp",
     port: process.env.RDS_PORT || 5432,
     ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false,
   },
@@ -48,7 +48,22 @@ app.get("/login", (req, res) => {
 
 //Render hike view page
 app.get("/hikes", (req, res) => {
-  res.render(path.join(__dirname + "/views/hikes.ejs"));
+
+  // knex.raw("SELECT h.hike_name, hike_length, AVG(r.rating) FROM hikes INNER JOIN hike_ratings h ON h.hike_id = r.hike_id GROUP BY  ")
+
+  knex('hikes')
+  .select('hikes.hike_name', 'hikes.hike_length')
+  .avg('hike_ratings.rating as average_rating')
+  .join('hike_ratings', 'hikes.hike_id', '=', 'hike_ratings.hike_id')
+  .groupBy('hikes.hike_id', 'hikes.hike_name', 'hikes.hike_length')
+  .then(hikes => {
+    console.log(hikes);
+  })
+  .catch(error => {
+    console.error(error);
+  })
+
+  res.render(path.join(__dirname + "/views/hikes.ejs", {hikes}));
 });
 
 

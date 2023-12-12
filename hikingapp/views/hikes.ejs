@@ -14,7 +14,7 @@
         <thead>
             <tr>
                 <th>Hike Name</th>
-                <th>Description</th>
+                <th>Length</th>
                 <th>Rating</th>
             </tr>
         </thead>
@@ -22,9 +22,9 @@
             <!-- make ejs display hikes here using for loop -->
             <% for (let iCount=0; iCount < hikes.length; iCount++) { %>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td><%= hikes[icount].hike_name%></td>
+                    <td><%= hikes[icount].hike_length%></td>
+                    <td><%= hikes[icount].rating%></td>
                 </tr>
                 <% } %>
         </tbody>
