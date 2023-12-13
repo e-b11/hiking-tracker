@@ -9,7 +9,30 @@
 
 <body>
 
+    <form action="/filterhikes" method="GET">
+        <div>
+            <label for="category">Search by:</label>
+            <select id="catagory" name="category"> <!-- dropdown menu -->
+            <option value="hike_name">Hike Name</option>
+            <option value="hike_length">Hike Length</option>
+            <option value="rating">Rating</option>
+            </select>
 
+            <label for="operator">Operator</label>
+            <select id="operator" name="operator"> <!-- dropdown menu -->
+            <option value="=">=</option>
+            <option value=">">></option>
+            <option value="<"><</option>
+            </select>
+            <label for="value">Value to search for: </label>
+            <input type="text" id="value" name="value">
+            <label for="limit">Limit:</label>
+            <input type="text" id="limit" name="limit" required>
+            <button type="submit" class="button">Search</button>
+        </div>
+    </form>
+
+    <br><br><br><br>
     <table>
         <thead>
             <tr>
@@ -20,11 +43,11 @@
         </thead>
         <tbody>
             <!-- make ejs display hikes here using for loop -->
-            <% for (let iCount=0; iCount < hikes.length; iCount++) { %>
+            <% for (let icount=0; icount < results.length; icount++) { %>
                 <tr>
-                    <td><%= hikes[icount].hike_name%></td>
-                    <td><%= hikes[icount].hike_length%></td>
-                    <td><%= hikes[icount].rating%></td>
+                    <td><%= results[icount].hike_name%></td>
+                    <td><%= results[icount].hike_length%></td>
+                    <td><%= results[icount].average_rating%></td>
                 </tr>
                 <% } %>
         </tbody>
