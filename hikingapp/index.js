@@ -67,7 +67,6 @@ app.post("/login", (req, res) => {
     });
 });
 
-//Render hike view page
 app.get("/hikes", (req, res) => {
   // knex.raw("SELECT h.hike_name, hike_length, AVG(r.rating) FROM hikes INNER JOIN hike_ratings h ON h.hike_id = r.hike_id GROUP BY  ")
 
@@ -76,9 +75,14 @@ app.get("/hikes", (req, res) => {
     .avg("hike_ratings.rating as average_rating")
     .join("hike_ratings", "hikes.hike_id", "=", "hike_ratings.hike_id")
     .groupBy("hikes.hike_id", "hikes.hike_name", "hikes.hike_length")
-    .then((hikes) => {
-      console.log(hikes);
-      res.render("hikes", { myhikes: hikes });
+    .then((results) => {
+      //change the average rating so that it is rounded to two decimal places
+      results = results.map((result) => {
+        result.average_rating = parseFloat(result.average_rating).toFixed(2);
+        return result;
+      });
+
+      res.render("hikes", { results });
     })
     .catch((error) => {
       console.error(error);
