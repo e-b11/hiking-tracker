@@ -41,8 +41,8 @@
                     <th>Hike Name</th>
                     <th>Description</th>
                     <th>Date</th>
-                    <th>Length</th>
-                    <th>Elevation</th>
+                    <th>Length (miles)</th>
+                    <th>Elevation (feet)</th>
                     <th>Location</th>
                     <th>Rating</th>
                     <th></th>
@@ -76,16 +76,17 @@
                             <%= myhikes[iCount].location%>
                         </td>
                         <td>
-                            <%= myhikes[iCount].rating%>
+                            <%= myhikes[iCount].rating %>
+
                         </td>
                         <td>
                             <form action="/editHike/<%= myhikes[iCount].hike_id %>" method="GET">
-                                <button type="submit">Edit</button>
+                                <button type="submit" class="button">Edit</button>
                             </form>
                         </td>
                         <td>
                             <form action="/deleteHike/<%= myhikes[iCount].hike_id %>" method="POST">
-                                <button type="submit">Delete</button>
+                                <button type="submit" class="button">Delete</button>
                             </form>
                         </td>
                     </tr>
