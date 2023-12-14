@@ -64,6 +64,8 @@
                     <th>Hike Name</th>
                     <th>Length</th>
                     <th>Rating</th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -79,27 +81,22 @@
                         <td>
                             <%= myhikes[iCount].rating%>
                         </td>
+                        <td>
+                            <form action="">
+                                <button>Edit</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="">
+                                <button>Delete</button>
+                            </form>
+                        </td>
                     </tr>
                     <% } %>
             </tbody>
-
-
-
-
         </table>
 
     </main>
-
-
-
-
-
-
-
-
-
-
-
 </body>
 
 </html>
