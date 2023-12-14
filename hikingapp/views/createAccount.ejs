@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/styles/main.css" type="text/css">
+  <link rel="stylesheet" href="/styles/login.css" type="text/css">
+
+</head>
+
+<body>
+  <header>
+    <div class="menu-icon">
+      <svg viewbox="0 0 60 60" width="40px" height="40px">
+        <line x1="5%" y1="50%" x2="95%" y2="50%" />
+        <line x1="5%" y1="50%" x2="95%" y2="50%" />
+      </svg>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="">Home</a></li>
+        <li><a href="/login">Login</a></li>
+        <li><a href="/hikes">Hikes</a></li>
+
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <form action="/createAccount" method="POST">
+      <fieldset>
+        <legend>Create Account</legend>
+        <div class="login">
+          <div>
+            <label for="username">Username:</label>
+            <input type="text" placeholder="Username" name="username" id="username">
+          </div>
+          <div>
+            <label for="password">Password:</label>
+            <input type="password" placeholder="Password" name="password" id="password">
+          </div>
+          <button type="submit" class="button" id="login" name="login">CREATE</button>
+        </div>
+      </fieldset>
+    </form>
+  </main>
+</body>
+
+</html>

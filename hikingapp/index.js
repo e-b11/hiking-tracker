@@ -69,24 +69,53 @@ app.post("/login", (req, res) => {
 
 app.get("/hikes", (req, res) => {
   // knex.raw("SELECT h.hike_name, hike_length, AVG(r.rating) FROM hikes INNER JOIN hike_ratings h ON h.hike_id = r.hike_id GROUP BY  ")
+  if (req.cookies.access == "granted") {
+    knex("hikes")
+      .select("hikes.hike_name", "hikes.hike_length")
+      .avg("hike_ratings.rating as average_rating")
+      .join("hike_ratings", "hikes.hike_id", "=", "hike_ratings.hike_id")
+      .groupBy("hikes.hike_id", "hikes.hike_name", "hikes.hike_length")
+      .then((results) => {
+        //change the average rating so that it is rounded to two decimal places
+        results = results.map((result) => {
+          result.average_rating = parseFloat(result.average_rating).toFixed(2);
+          return result;
+        });
 
-  knex("hikes")
-    .select("hikes.hike_name", "hikes.hike_length")
-    .avg("hike_ratings.rating as average_rating")
-    .join("hike_ratings", "hikes.hike_id", "=", "hike_ratings.hike_id")
-    .groupBy("hikes.hike_id", "hikes.hike_name", "hikes.hike_length")
-    .then((results) => {
-      //change the average rating so that it is rounded to two decimal places
-      results = results.map((result) => {
-        result.average_rating = parseFloat(result.average_rating).toFixed(2);
-        return result;
+        res.render("hikes", { results });
+      })
+      .catch((error) => {
+        console.error(error);
       });
+  } else {
+    res.redirect("/createAccount");
+  }
+});
 
-      res.render("hikes", { results });
+//Create Account route
+app.get("/createAccount", (req, res) => {
+  res.render("createAccount");
+});
+
+//Send new user info to users table, then redirect user to login
+app.post("/createAccount", (req, res) => {
+  knex("users")
+    .insert({
+      username: req.body.username,
+      password: req.body.password,
+    })
+    .then(() => {
+      res.redirect("/login");
     })
     .catch((error) => {
-      console.error(error);
+      console.error("Error processing the form:", error);
+      res.status(500).send("Internal Server Error");
     });
+});
+
+//Ratings page
+app.get("/ratings", (req, res) => {
+  res.render("ratings");
 });
 
 //Tell it what port to listen out and send a message when it starts
