@@ -32,16 +32,22 @@
     </header>
     <h1>My Hikes</h1>
     <main>
-        
+
 
         <table class="table table-bordered">
             <thead>
                 <tr>
+                    <th>Username</th>
                     <th>Hike Name</th>
+                    <th>Description</th>
+                    <th>Date</th>
                     <th>Length</th>
+                    <th>Elevation</th>
+                    <th>Location</th>
                     <th>Rating</th>
                     <th></th>
                     <th></th>
+
                 </tr>
             </thead>
             <tbody>
@@ -49,29 +55,44 @@
                 <% for (let iCount=0; iCount < myhikes.length; iCount++) { %>
                     <tr>
                         <td>
+                            <%= myhikes[iCount].username%>
+                        </td>
+                        <td>
                             <%= myhikes[iCount].hike_name%>
                         </td>
                         <td>
-                            <%= myhikes[iCount].hike_length%>
+                            <%= myhikes[iCount].hike_description%>
+                        </td>
+                        <td>
+                            <%= myhikes[iCount].date%>
+                        </td>
+                        <td>
+                            <%= myhikes[iCount].length%>
+                        </td>
+                        <td>
+                            <%= myhikes[iCount].elevation%>
+                        </td>
+                        <td>
+                            <%= myhikes[iCount].location%>
                         </td>
                         <td>
                             <%= myhikes[iCount].rating%>
                         </td>
                         <td>
-                            <form action="">
-                                <button>Edit</button>
+                            <form action="/editHike/<%= myhikes[iCount].hike_id %>" method="GET">
+                                <button type="submit">Edit</button>
                             </form>
                         </td>
                         <td>
-                            <form action="">
-                                <button>Delete</button>
+                            <form action="/deleteHike/<%= myhikes[iCount].hike_id %>" method="POST">
+                                <button type="submit">Delete</button>
                             </form>
                         </td>
                     </tr>
                     <% } %>
             </tbody>
         </table>
-
+        <a href="/addHike" class="button">Add Hike</a>
     </main>
 </body>
 

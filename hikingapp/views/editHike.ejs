@@ -30,26 +30,35 @@
       </ul>
     </nav>
   </header>
-  <h1>Add Hike</h1>
+  <h1>Edit Hike</h1>
   <main>
 
 
-    <form action="/addHike" method="POST">
+    <form action="/editHike" method="POST">
+      <input type="hidden" name="hike_id" id="hike_id" value="<%= myhikes[0].hike_id %>">
+
       <label for="hike_name">Hike Name:</label>
-      <input type="text" name="hike_name" id="hike_name">
+      <input type="text" name="hike_name" id="hike_name" value="<%= myhikes[0].hike_name %>">
+
       <label for="hike_length">Hike Length</label>
-      <input type="text" name="hike_length" id="hike_length">
+      <input type="text" name="hike_length" id="hike_length" value="<%= myhikes[0].length %>">
+
       <label for="rating">Hike Rating: </label>
-      <input type="text" name="rating" id="rating">
+      <input type="text" name="rating" id="rating" value="<%= myhikes[0].rating %>">
+
       <label for="description">Hike Description: </label>
-      <input type="text" name="description" id="description">
+      <input type="text" name="description" id="description" value="<%= myhikes[0].hike_description %>">
+
       <label for="date">Date: </label>
-      <input type="text" name="date" id="date">
+      <input type="text" name="date" id="date" value="<%= myhikes[0].date %>">
+
       <label for="location">Location: </label>
-      <input type="text" name="location" id="location">
+      <input type="text" name="location" id="location" value="<%= myhikes[0].location %>">
+
       <label for="elevation">Elevation</label>
-      <input type="text" name="elevation" id="elevation">
-      <button type="submit" class="hike">Add Hike</button>
+      <input type="text" name="elevation" id="elevation" value="<%= myhikes[0].elevation %>">
+
+      <button type="submit" class="button">Update</button>
     </form>
   </main>
 </body>

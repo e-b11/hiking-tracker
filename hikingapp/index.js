@@ -67,22 +67,53 @@ app.post("/login", (req, res) => {
     });
 });
 
+// app.get("/hikes", (req, res) => {
+//   // knex.raw("SELECT h.hike_name, hike_length, AVG(r.rating) FROM hikes INNER JOIN hike_ratings h ON h.hike_id = r.hike_id GROUP BY  ")
+//   if (req.cookies.access == "granted") {
+//     knex("hikes")
+//       .select("hikes.hike_name", "hikes.hike_length")
+//       .avg("hike_ratings.rating as average_rating")
+//       .join("hike_ratings", "hikes.hike_id", "=", "hike_ratings.hike_id")
+//       .groupBy("hikes.hike_id", "hikes.hike_name", "hikes.hike_length")
+//       .then((results) => {
+//         //change the average rating so that it is rounded to two decimal places
+//         results = results.map((result) => {
+//           result.average_rating = parseFloat(result.average_rating).toFixed(2);
+//           return result;
+//         });
+
+//         res.render("hikes", { results });
+//       })
+//       .catch((error) => {
+//         console.error(error);
+//       });
+//   } else {
+//     res.redirect("/createAccount");
+//   }
+// });
+
+//Create Account route
+
 app.get("/hikes", (req, res) => {
   // knex.raw("SELECT h.hike_name, hike_length, AVG(r.rating) FROM hikes INNER JOIN hike_ratings h ON h.hike_id = r.hike_id GROUP BY  ")
   if (req.cookies.access == "granted") {
-    knex("hikes")
-      .select("hikes.hike_name", "hikes.hike_length")
-      .avg("hike_ratings.rating as average_rating")
-      .join("hike_ratings", "hikes.hike_id", "=", "hike_ratings.hike_id")
-      .groupBy("hikes.hike_id", "hikes.hike_name", "hikes.hike_length")
-      .then((results) => {
-        //change the average rating so that it is rounded to two decimal places
-        results = results.map((result) => {
-          result.average_rating = parseFloat(result.average_rating).toFixed(2);
-          return result;
-        });
-
-        res.render("hikes", { results });
+    knex
+      .select(
+        "hike_id",
+        "username",
+        "hike_name",
+        "hike_description",
+        "date",
+        "length",
+        "elevation",
+        "location",
+        "rating"
+      )
+      .from("hikes")
+      .where("username", req.cookies.username)
+      .then((hikes) => {
+        const pageuser = req.cookies.username;
+        res.render("hikes", { myhikes: hikes });
       })
       .catch((error) => {
         console.error(error);
@@ -92,7 +123,6 @@ app.get("/hikes", (req, res) => {
   }
 });
 
-//Create Account route
 app.get("/createAccount", (req, res) => {
   res.render("createAccount");
 });
@@ -110,6 +140,102 @@ app.post("/createAccount", (req, res) => {
     .catch((error) => {
       console.error("Error processing the form:", error);
       res.status(500).send("Internal Server Error");
+    });
+});
+
+app.get("/addHike", (req, res) => {
+  res.render("addHike");
+});
+
+app.post("/addHike", (req, res) => {
+  if (req.cookies.access == "granted") {
+    knex("hikes")
+      .insert({
+        username: req.cookies.username,
+        hike_name: req.body.hike_name,
+        hike_description: req.body.description,
+        date: req.body.date,
+        length: req.body.hike_length,
+        elevation: req.body.elevation,
+        location: req.body.location,
+        rating: req.body.rating,
+      })
+      .then(() => {
+        res.redirect("/hikes");
+      })
+      .catch((error) => {
+        console.error("Error processing the form:", error);
+        res.status(500).send("Internal Server Error");
+      });
+  } else {
+    res.send("You do not have access to this page.");
+  }
+});
+
+//Edit hike
+app.get("/editHike/:id", (req, res) => {
+  if (req.cookies.access == "granted") {
+    knex
+      .select(
+        "hike_id",
+        "username",
+        "hike_name",
+        "hike_description",
+        "date",
+        "length",
+        "elevation",
+        "location",
+        "rating"
+      )
+      .from("hikes")
+      .where("hike_id", req.params.id)
+      .then((hikes) => {
+        res.render("editHike", { myhikes: hikes });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  } else {
+    res.redirect("/createAccount");
+  }
+});
+
+app.post("/editHike", (req, res) => {
+  if (req.cookies.access == "granted") {
+    knex("hikes")
+      .where("hike_id", parseInt(req.body.hike_id))
+      .update({
+        hike_name: req.body.hike_name,
+        hike_description: req.body.hike_description,
+        date: req.body.date,
+        length: req.body.length,
+        elevation: req.body.elevation,
+        location: req.body.location,
+        rating: req.body.rating,
+      })
+      .then((myhikes) => {
+        res.redirect("/hikes");
+      })
+      .catch((error) => {
+        console.error("Error processing the form:", error);
+        res.status(500).send("Internal Server Error");
+      });
+  } else {
+    res.send("You do not have access to view this page.");
+  }
+});
+
+//Delete Hike
+app.post("/deleteHike/:id", (req, res) => {
+  knex("hikes")
+    .where("hike_id", req.params.id)
+    .del()
+    .then((myhikes) => {
+      res.redirect("/hikes");
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ err });
     });
 });
 
