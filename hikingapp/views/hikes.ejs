@@ -26,16 +26,18 @@
         <nav>
             <ul>
                 <li><a href="/">Home</a></li>
-                <li><a href="">Login</a></li>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/hikes">Hikes</a></li>
+                <li><a href="/ratings">Ratings</a></li>
             </ul>
         </nav>
     </header>
-    <h1>My Hikes</h1>
-    <main>
+    <h1 class="title">My Hikes</h1>
+    <main class="maintable">
 
 
-        <table class="table table-bordered">
-            <thead>
+        <table class="table table-bordered table-hover">
+            <thead class="table-primary">
                 <tr>
                     <th>Username</th>
                     <th>Hike Name</th>
@@ -64,7 +66,11 @@
                             <%= myhikes[iCount].hike_description%>
                         </td>
                         <td>
-                            <%= myhikes[iCount].date%>
+                            <% const dateObject=myhikes[iCount].date; const year=dateObject.getFullYear(); const
+                                month=String(dateObject.getMonth() + 1).padStart(2, '0' ); const
+                                day=String(dateObject.getDate()).padStart(2, '0' ); const
+                                formattedDate=`${year}-${month}-${day}`; %>
+                                <%= formattedDate %>
                         </td>
                         <td>
                             <%= myhikes[iCount].length%>
@@ -81,20 +87,34 @@
                         </td>
                         <td>
                             <form action="/editHike/<%= myhikes[iCount].hike_id %>" method="GET">
-                                <button type="submit" class="button">Edit</button>
+                                <button type="submit" class="button" style="margin: 0;">Edit</button>
                             </form>
                         </td>
                         <td>
                             <form action="/deleteHike/<%= myhikes[iCount].hike_id %>" method="POST">
-                                <button type="submit" class="button">Delete</button>
+                                <button type="submit" class="button" style="margin: 0;">Delete</button>
                             </form>
                         </td>
                     </tr>
                     <% } %>
             </tbody>
         </table>
-        <a href="/addHike" class="button">Add Hike</a>
+        <a href="/addHike" class="button mainbutton">Add Hike</a>
     </main>
+    <ul class="background">
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <footer class="footercolor">
+        <p><strong>Section 3-3 &copy; 2023</strong></p>
+    </footer>
+
+    <script>
+        document.querySelector(".menu-icon").addEventListener("click", function () {
+            this.parentElement.classList.toggle("close");
+        });
+    </script>
 </body>
 
 </html>

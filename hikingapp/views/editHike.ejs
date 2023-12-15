@@ -13,9 +13,10 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <link rel="stylesheet" href="/styles/main.css">
+  <!-- <link rel="stylesheet" href="/style/survey.css"> -->
 </head>
 
-<body>
+<body class="contact">
   <header>
     <div class="menu-icon">
       <svg viewbox="0 0 60 60" width="40px" height="40px">
@@ -27,40 +28,73 @@
       <ul>
         <li><a href="/">Home</a></li>
         <li><a href="/login">Login</a></li>
+        <li><a href="/hikes">Hikes</a></li>
+        <li><a href="/ratings">Ratings</a></li>
       </ul>
     </nav>
   </header>
   <h1>Edit Hike</h1>
   <main>
+    <div class="image-wrapper"></div>
 
-
-    <form action="/editHike" method="POST">
+    <form action="/editHike" method="POST" class="form">
       <input type="hidden" name="hike_id" id="hike_id" value="<%= myhikes[0].hike_id %>">
 
       <label for="hike_name">Hike Name:</label>
       <input type="text" name="hike_name" id="hike_name" value="<%= myhikes[0].hike_name %>">
 
-      <label for="hike_length">Hike Length</label>
-      <input type="text" name="hike_length" id="hike_length" value="<%= myhikes[0].length %>">
-
-      <label for="rating">Hike Rating: </label>
-      <input type="text" name="rating" id="rating" value="<%= myhikes[0].rating %>">
-
       <label for="description">Hike Description: </label>
       <input type="text" name="description" id="description" value="<%= myhikes[0].hike_description %>">
 
       <label for="date">Date: </label>
-      <input type="text" name="date" id="date" value="<%= myhikes[0].date %>">
+      <!-- <input type="date" name="date" id="date" value="<%= myhikes[0].date %>"> -->
 
-      <label for="location">Location: </label>
-      <input type="text" name="location" id="location" value="<%= myhikes[0].location %>">
+      <% const dateObject=myhikes[0].date; const year=dateObject.getFullYear(); const month=String(dateObject.getMonth()
+        + 1).padStart(2, '0' ); const day=String(dateObject.getDate()).padStart(2, '0' ); const
+        formattedDate=`${year}-${month}-${day}`; %>
+        <input type="date" name="date" id="date" value="<%= formattedDate %>">
 
-      <label for="elevation">Elevation</label>
-      <input type="text" name="elevation" id="elevation" value="<%= myhikes[0].elevation %>">
+        <label for="hike_length">Hike Length</label>
+        <input type="number" name="hike_length" id="hike_length" value="<%= myhikes[0].length %>" min="0" step="0.01">
 
-      <button type="submit" class="button">Update</button>
+        <label for="elevation">Elevation</label>
+        <input type="number" name="elevation" id="elevation" value="<%= myhikes[0].elevation %>" min="0" step="1">
+
+        <label for="location">Location: </label>
+        <input type="text" name="location" id="location" value="<%= myhikes[0].location %>">
+
+        <label for="rating">Hike Rating: </label>
+        <div>
+          <input type="range" name="rating" id="rating" value="<%= myhikes[0].rating %>" list="values" min="1" max="5"
+            step="1">
+          <datalist id="values">
+            <option value="1" label="1"></option>
+            <option value="2" label="2"></option>
+            <option value="3" label="3"></option>
+            <option value="4" label="4"></option>
+            <option value="5" label="5"></option>
+          </datalist>
+        </div>
+        <!-- <input type="number" name="rating" id="rating" value="<%= myhikes[0].rating %>"> -->
+
+        <button type="submit" class="button">Update</button>
     </form>
   </main>
+  <ul class="background">
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+  <footer>
+    <p><strong>Section 3-3 &copy; 2023</strong></p>
+  </footer>
+
+  <script>
+    document.querySelector(".menu-icon").addEventListener("click", function () {
+      this.parentElement.classList.toggle("close");
+    });
+  </script>
+
 </body>
 
 </html>

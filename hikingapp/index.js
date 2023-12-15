@@ -58,7 +58,7 @@ app.post("/login", (req, res) => {
         res.cookie("access", "granted", { maxAge: 900000, httpOnly: true }); //creates a cookie that sets access privileges to granted
         res.redirect("hikes");
       } else {
-        res.status(401).send("Invalid username or password");
+        res.render("invalidLogin");
       }
     })
     .catch((error) => {
@@ -67,33 +67,7 @@ app.post("/login", (req, res) => {
     });
 });
 
-// app.get("/hikes", (req, res) => {
-//   // knex.raw("SELECT h.hike_name, hike_length, AVG(r.rating) FROM hikes INNER JOIN hike_ratings h ON h.hike_id = r.hike_id GROUP BY  ")
-//   if (req.cookies.access == "granted") {
-//     knex("hikes")
-//       .select("hikes.hike_name", "hikes.hike_length")
-//       .avg("hike_ratings.rating as average_rating")
-//       .join("hike_ratings", "hikes.hike_id", "=", "hike_ratings.hike_id")
-//       .groupBy("hikes.hike_id", "hikes.hike_name", "hikes.hike_length")
-//       .then((results) => {
-//         //change the average rating so that it is rounded to two decimal places
-//         results = results.map((result) => {
-//           result.average_rating = parseFloat(result.average_rating).toFixed(2);
-//           return result;
-//         });
-
-//         res.render("hikes", { results });
-//       })
-//       .catch((error) => {
-//         console.error(error);
-//       });
-//   } else {
-//     res.redirect("/createAccount");
-//   }
-// });
-
-//Create Account route
-
+//Display hikes page
 app.get("/hikes", (req, res) => {
   // knex.raw("SELECT h.hike_name, hike_length, AVG(r.rating) FROM hikes INNER JOIN hike_ratings h ON h.hike_id = r.hike_id GROUP BY  ")
   if (req.cookies.access == "granted") {
@@ -110,7 +84,7 @@ app.get("/hikes", (req, res) => {
         "rating"
       )
       .from("hikes")
-      .where("username", req.cookies.username)
+      .where("username", req.cookies.username) //Only show hikes for logged in user
       .then((hikes) => {
         const pageuser = req.cookies.username;
         res.render("hikes", { myhikes: hikes });
@@ -119,10 +93,11 @@ app.get("/hikes", (req, res) => {
         console.error(error);
       });
   } else {
-    res.redirect("/createAccount");
+    res.redirect("/login");
   }
 });
 
+//Create Account route
 app.get("/createAccount", (req, res) => {
   res.render("createAccount");
 });
@@ -143,10 +118,12 @@ app.post("/createAccount", (req, res) => {
     });
 });
 
+//Create hike page
 app.get("/addHike", (req, res) => {
   res.render("addHike");
 });
 
+//Post new hike to database, only allow if user is logged in
 app.post("/addHike", (req, res) => {
   if (req.cookies.access == "granted") {
     knex("hikes")
@@ -172,7 +149,7 @@ app.post("/addHike", (req, res) => {
   }
 });
 
-//Edit hike
+//Edit hike page
 app.get("/editHike/:id", (req, res) => {
   if (req.cookies.access == "granted") {
     knex
@@ -196,10 +173,11 @@ app.get("/editHike/:id", (req, res) => {
         console.error(error);
       });
   } else {
-    res.redirect("/createAccount");
+    res.redirect("/login");
   }
 });
 
+//Post edits to hike
 app.post("/editHike", (req, res) => {
   if (req.cookies.access == "granted") {
     knex("hikes")

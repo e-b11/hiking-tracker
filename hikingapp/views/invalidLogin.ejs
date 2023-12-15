@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+<!-- Emma Bastian, Lauren do Lago, Connor Humphrey, Johnny Fietkau (Section 3) -->
 
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Create Account</title>
+  <meta name="description" content="This is the login page for the hiking tracker.">
+  <title>Invalid Login</title>
+  <!-- <link rel="apple-touch-icon" sizes="180x180" href="../public/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../public/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../public/images/favicon-16x16.png">
+    <link rel="manifest" href="../images/site.webmanifest"> -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -12,7 +19,6 @@
     rel="stylesheet">
   <link rel="stylesheet" href="/styles/main.css" type="text/css">
   <link rel="stylesheet" href="/styles/login.css" type="text/css">
-
 </head>
 
 <body>
@@ -28,17 +34,16 @@
         <li><a href="/">Home</a></li>
         <li><a href="/login">Login</a></li>
         <li><a href="/hikes">Hikes</a></li>
-        <li><a href="/hikes">Hikes</a></li>
         <li><a href="/ratings">Ratings</a></li>
       </ul>
     </nav>
   </header>
-
   <main>
-    <form action="/createAccount" method="POST">
+    <form action="/login" method="POST">
       <fieldset>
-        <legend>Create Account</legend>
+        <legend style="color: red;">Invalid Login</legend>
         <div class="login">
+          <p>Wrong username or password. Try again or create an account.</p>
           <div>
             <label for="username">Username:</label>
             <input type="text" placeholder="Username" name="username" id="username">
@@ -47,12 +52,13 @@
             <label for="password">Password:</label>
             <input type="password" placeholder="Password" name="password" id="password">
           </div>
-          <button type="submit" class="button" id="login" name="login">CREATE</button>
+          <button type="submit" class="button" id="login" name="login">LOGIN</button>
           <br>
-          <a href="/login" class="nologin">Already have an account?</a>
+          <a href="/createAccount" class="nologin">Don't have an account?</a>
         </div>
       </fieldset>
     </form>
+
   </main>
   <footer>
     <p><strong>Section 3-3 &copy; 2023</strong></p>

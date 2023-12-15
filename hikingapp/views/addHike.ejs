@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="/styles/main.css">
 </head>
 
-<body>
+<body class="contact">
   <header>
     <div class="menu-icon">
       <svg viewbox="0 0 60 60" width="40px" height="40px">
@@ -27,31 +27,67 @@
       <ul>
         <li><a href="/">Home</a></li>
         <li><a href="/login">Login</a></li>
+        <li><a href="/hikes">Hikes</a></li>
+        <li><a href="/ratings">Ratings</a></li>
       </ul>
     </nav>
   </header>
   <h1>Add Hike</h1>
+
   <main>
+    <div class="image-wrapper"></div>
 
 
-    <form action="/addHike" method="POST">
-      <label for="hike_name">Hike Name:</label>
-      <input type="text" name="hike_name" id="hike_name">
-      <label for="hike_length">Hike Length</label>
-      <input type="text" name="hike_length" id="hike_length">
-      <label for="rating">Hike Rating: </label>
-      <input type="text" name="rating" id="rating">
-      <label for="description">Hike Description: </label>
-      <input type="text" name="description" id="description">
-      <label for="date">Date: </label>
-      <input type="text" name="date" id="date">
-      <label for="location">Location: </label>
-      <input type="text" name="location" id="location">
-      <label for="elevation">Elevation</label>
-      <input type="text" name="elevation" id="elevation">
-      <button type="submit" class="hike">Add Hike</button>
+    <form action="/addHike" method="POST" class="form">
+
+      <label for="hike_name">Name:</label>
+      <input type="text" name="hike_name" id="hike_name" placeholder="Hike Name">
+
+      <label for="description">Description: </label>
+      <textarea name="description" id="description" cols="20" rows="5"
+        placeholder="Write hike description here."></textarea>
+
+      <label for="date">Date:</label>
+      <input type="date" name="date" id="date">
+
+      <label for="hike_length">Length (miles):</label>
+      <input type="number" name="hike_length" id="hike_length" min="0" step="0.01" placeholder="1.0">
+
+      <label for="elevation">Elevation (feet):</label>
+      <input type="number" name="elevation" id="elevation" min="0" step="1" placeholder="0">
+
+      <label for="location">Location:</label>
+      <input type="text" name="location" id="location" placeholder="Utah">
+
+      <label for="rating">Hike Rating:</label>
+      <div>
+        <input type="range" name="rating" id="rating" list="values" min="1" max="5" step="1" value="3">
+        <datalist id="values">
+          <option value="1" label="1"></option>
+          <option value="2" label="2"></option>
+          <option value="3" label="3"></option>
+          <option value="4" label="4"></option>
+          <option value="5" label="5"></option>
+        </datalist>
+      </div>
+      <button type="submit" class="button">Add Hike</button>
     </form>
   </main>
+  <ul class="background">
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+
+  <footer>
+    <p><strong>Section 3-3 &copy; 2023</strong></p>
+  </footer>
+
+  <script>
+    document.querySelector(".menu-icon").addEventListener("click", function () {
+      this.parentElement.classList.toggle("close");
+    });
+  </script>
 </body>
 
 </html>

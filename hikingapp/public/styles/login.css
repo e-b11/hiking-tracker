@@ -76,3 +76,11 @@ legend {
   text-decoration: none;
   font-weight: normal;
 }
+
+.nologin {
+  color: var(--misty-violet);
+}
+
+.nologin:hover {
+  color: var(--indigo);
+}
