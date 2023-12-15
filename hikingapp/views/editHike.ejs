@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Add Hike</title>
+  <title>Edit Hike</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -36,7 +36,7 @@
   <h1>Edit Hike</h1>
   <main>
     <div class="image-wrapper"></div>
-
+    <!-- Form to update a hike record -->
     <form action="/editHike" method="POST" class="form">
       <input type="hidden" name="hike_id" id="hike_id" value="<%= myhikes[0].hike_id %>">
 
@@ -49,6 +49,7 @@
       <label for="date">Date:</label>
       <!-- <input type="date" name="date" id="date" value="<%= myhikes[0].date %>"> -->
 
+      <!-- Reformat date so that it shows in yyyy-mm-dd format -->
       <% const dateObject=myhikes[0].date; const year=dateObject.getFullYear(); const month=String(dateObject.getMonth()
         + 1).padStart(2, '0' ); const day=String(dateObject.getDate()).padStart(2, '0' ); const
         formattedDate=`${year}-${month}-${day}`; %>

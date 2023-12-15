@@ -1,7 +1,8 @@
 //Project 3: Hiking Tracker
+//Description: Users have the ability to view, update, add, and delete hikes once they login. They can also see some recommendations.
 // Emma Bastian, Connor Humphrey, Johnny Fietkau, Lauren do Lago
 
-//Express Package
+//Set up Packages
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const favicon = require("serve-favicon");
@@ -13,12 +14,12 @@ let app = express();
 //Set port
 const port = process.env.PORT || 3000;
 
-//Add ejs
+//Add ejs, cookie functionality
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-//Connect css file
+//Connect css file, favicon
 app.use(express.static(__dirname + "/public"));
 app.use(favicon(path.join(faviconPath, "favicon.ico")));
 
@@ -59,6 +60,7 @@ app.post("/login", (req, res) => {
         res.cookie("access", "granted", { maxAge: 900000, httpOnly: true }); //creates a cookie that sets access privileges to granted
         res.redirect("hikes");
       } else {
+        //If they get something wrong, they have the option to try again from a different view
         res.render("invalidLogin");
       }
     })
@@ -71,6 +73,7 @@ app.post("/login", (req, res) => {
 //Display hikes page
 app.get("/hikes", (req, res) => {
   // knex.raw("SELECT h.hike_name, hike_length, AVG(r.rating) FROM hikes INNER JOIN hike_ratings h ON h.hike_id = r.hike_id GROUP BY  ")
+  //Many of the routes have these if statements, so that they can only be accessed if you are logged in. Otherwise, you are redirected to the login page
   if (req.cookies.access == "granted") {
     knex
       .select(
@@ -170,6 +173,7 @@ app.get("/editHike/:id", (req, res) => {
         "rating"
       )
       .from("hikes")
+      //only show info about the hike they want to edit
       .where("hike_id", req.params.id)
       .then((hikes) => {
         res.render("editHike", { myhikes: hikes });
@@ -187,6 +191,7 @@ app.post("/editHike", (req, res) => {
   if (req.cookies.access == "granted") {
     knex("hikes")
       .where("hike_id", parseInt(req.body.hike_id))
+      //No need to update hike id or username, as that should not change
       .update({
         hike_name: req.body.hike_name,
         hike_description: req.body.hike_description,
