@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ratings</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/styles/main.css" type="text/css">
+</head>
+
+<body>
+  <header>
+    <div class="menu-icon">
+      <svg viewbox="0 0 60 60" width="40px" height="40px">
+        <line x1="5%" y1="50%" x2="95%" y2="50%" />
+        <line x1="5%" y1="50%" x2="95%" y2="50%" />
+      </svg>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/login">Login</a></li>
+        <li><a href="/hikes">My Hikes</a></li>
+        <li><a href="/recommendations">Recommendations</a></li>
+
+      </ul>
+    </nav>
+  </header>
+  <h1 class="title" style="background-color: #2255bb;">Recommendations</h1>
+  <main>
+    <p style="font-size: 1.5rem;">Welcome to the recommendations page! This page contains some recommendations from the
+      creators of hikes they have
+      been on. Click to to get more information about each hike. Once you've been on one, make sure to update your
+      tracker!</p>
+  </main>
+
+
+  <section class="cards">
+    <!-- <h2 class="sr-only, cards">Cards</h2> -->
+    <a href="https://www.alltrails.com/trail/us/utah/cecret-lake-trail" class="card">
+      <img src="images/cecretlake-500px.jpg" alt="Cecret Lake Trail" width="500" height="636" loading="lazy">
+      <p>Cecret Lake</p>
+    </a>
+    <a href="https://www.alltrails.com/trail/us/utah/silver-lake-twin-lake-lake-mary-and-dog-lake-loop" class="card">
+      <img src="images/silverlake-500px.jpg" alt="Silver Lake Trail" width="500" height="636" loading="lazy">
+      <p>Silver Lake</p>
+    </a>
+    <a href="https://www.alltrails.com/trail/us/utah/emerald-pools-trail" class="card">
+      <img src="images/emeraldpools-500px.jpg" alt="Emerald Pools Trail" width="500" height="636" loading="lazy">
+      <p>Emerald Pools</p>
+    </a>
+    <a href="https://www.alltrails.com/trail/us/utah/angels-landing-trail" class="card">
+      <img src="images/angelslanding-500px.jpg" alt="Angles Landing" width="500" height="636" loading="lazy">
+      <p>Angel's Landing</p>
+    </a>
+  </section>
+
+  <footer>
+    <p><strong>Section 3-3 &copy; 2023</strong></p>
+  </footer>
+
+  <script>
+    document.querySelector(".menu-icon").addEventListener("click", function () {
+      this.parentElement.classList.toggle("close");
+    });
+  </script>
+</body>
+
+</html>

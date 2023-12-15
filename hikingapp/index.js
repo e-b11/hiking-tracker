@@ -54,6 +54,7 @@ app.post("/login", (req, res) => {
     .first()
     .then((user) => {
       if (user) {
+        //Create cookies to store username and privileges
         res.cookie("username", username, { maxAge: 900000, httpOnly: true }); //creates a cookie 'username' and assigns the value of the username
         res.cookie("access", "granted", { maxAge: 900000, httpOnly: true }); //creates a cookie that sets access privileges to granted
         res.redirect("hikes");
@@ -120,7 +121,11 @@ app.post("/createAccount", (req, res) => {
 
 //Create hike page
 app.get("/addHike", (req, res) => {
-  res.render("addHike");
+  if (req.cookies.access == "granted") {
+    res.render("addHike");
+  } else {
+    res.redirect("/login");
+  }
 });
 
 //Post new hike to database, only allow if user is logged in
@@ -218,8 +223,17 @@ app.post("/deleteHike/:id", (req, res) => {
 });
 
 //Ratings page
-app.get("/ratings", (req, res) => {
-  res.render("ratings");
+app.get("/recommendations", (req, res) => {
+  res.render("recommendations");
+});
+
+//Logout
+app.get("/logout", (req, res) => {
+  //remove admin cookies
+  //req.cookies.access = "not_granted";
+  res.cookie("access", "not_granted", { maxAge: 9000, httpOnly: true });
+
+  res.redirect("/");
 });
 
 //Tell it what port to listen out and send a message when it starts
