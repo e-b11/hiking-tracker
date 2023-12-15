@@ -40,13 +40,13 @@
     <form action="/editHike" method="POST" class="form">
       <input type="hidden" name="hike_id" id="hike_id" value="<%= myhikes[0].hike_id %>">
 
-      <label for="hike_name">Hike Name:</label>
+      <label for="hike_name">Name:</label>
       <input type="text" name="hike_name" id="hike_name" value="<%= myhikes[0].hike_name %>">
 
-      <label for="description">Hike Description: </label>
+      <label for="description">Description:</label>
       <input type="text" name="description" id="description" value="<%= myhikes[0].hike_description %>">
 
-      <label for="date">Date: </label>
+      <label for="date">Date:</label>
       <!-- <input type="date" name="date" id="date" value="<%= myhikes[0].date %>"> -->
 
       <% const dateObject=myhikes[0].date; const year=dateObject.getFullYear(); const month=String(dateObject.getMonth()
@@ -54,16 +54,16 @@
         formattedDate=`${year}-${month}-${day}`; %>
         <input type="date" name="date" id="date" value="<%= formattedDate %>">
 
-        <label for="hike_length">Hike Length</label>
+        <label for="hike_length">Length (in miles):</label>
         <input type="number" name="hike_length" id="hike_length" value="<%= myhikes[0].length %>" min="0" step="0.01">
 
-        <label for="elevation">Elevation</label>
+        <label for="elevation">Elevation (in feet):</label>
         <input type="number" name="elevation" id="elevation" value="<%= myhikes[0].elevation %>" min="0" step="1">
 
-        <label for="location">Location: </label>
+        <label for="location">Location:</label>
         <input type="text" name="location" id="location" value="<%= myhikes[0].location %>">
 
-        <label for="rating">Hike Rating: </label>
+        <label for="rating">Rating: </label>
         <div>
           <input type="range" name="rating" id="rating" value="<%= myhikes[0].rating %>" list="values" min="1" max="5"
             step="1">
